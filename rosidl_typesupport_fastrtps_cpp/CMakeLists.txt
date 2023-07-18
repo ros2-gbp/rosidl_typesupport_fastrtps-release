@@ -10,17 +10,16 @@ else()
     CACHE BOOL "If Connext Static should be disabled.")
 endif()
 
-# Default to C++17
+# Default to C++14
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 17)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  set(CMAKE_CXX_STANDARD 14)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-find_package(ament_cmake_ros REQUIRED)
+find_package(ament_cmake REQUIRED)
 
 find_package(fastrtps_cmake_module QUIET)
 find_package(fastcdr REQUIRED CONFIG)
@@ -36,13 +35,14 @@ find_package(rmw REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
 
 ament_export_dependencies(rmw)
+ament_export_dependencies(rosidl_cmake)
 ament_export_dependencies(rosidl_runtime_c)
 ament_export_dependencies(fastrtps_cmake_module)
 ament_export_dependencies(fastcdr)
 
 ament_python_install_package(${PROJECT_NAME})
 
-add_library(${PROJECT_NAME}
+add_library(${PROJECT_NAME} SHARED
   src/identifier.cpp
   src/wstring_conversion.cpp)
 set_property(TARGET ${PROJECT_NAME}

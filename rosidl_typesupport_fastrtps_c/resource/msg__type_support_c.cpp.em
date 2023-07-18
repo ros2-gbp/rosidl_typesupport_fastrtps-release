@@ -1,9 +1,6 @@
 @# Included from rosidl_typesupport_fastrtps_c/resource/idl__type_support_c.cpp.em
 @{
-from rosidl_generator_c import idl_structure_type_to_c_typename
-from rosidl_generator_type_description import GET_DESCRIPTION_FUNC
-from rosidl_generator_type_description import GET_HASH_FUNC
-from rosidl_generator_type_description import GET_SOURCES_FUNC
+from rosidl_cmake import convert_camel_case_to_lower_case_underscore
 from rosidl_parser.definition import AbstractGenericString
 from rosidl_parser.definition import AbstractNestedType
 from rosidl_parser.definition import AbstractSequence
@@ -12,19 +9,14 @@ from rosidl_parser.definition import AbstractWString
 from rosidl_parser.definition import ACTION_FEEDBACK_SUFFIX
 from rosidl_parser.definition import ACTION_GOAL_SUFFIX
 from rosidl_parser.definition import ACTION_RESULT_SUFFIX
-from rosidl_parser.definition import SERVICE_EVENT_MESSAGE_SUFFIX
-from rosidl_parser.definition import SERVICE_REQUEST_MESSAGE_SUFFIX
-from rosidl_parser.definition import SERVICE_RESPONSE_MESSAGE_SUFFIX
 from rosidl_parser.definition import Array
 from rosidl_parser.definition import BasicType
 from rosidl_parser.definition import BoundedSequence
 from rosidl_parser.definition import NamespacedType
-from rosidl_pycommon import convert_camel_case_to_lower_case_underscore
 
 include_parts = [package_name] + list(interface_path.parents[0].parts) + [
     'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
 include_base = '/'.join(include_parts)
-
 
 header_files = [
     'cassert',
@@ -92,12 +84,6 @@ for member in message.structure.members:
         keys.add('rosidl_runtime_c/u16string.h')
         keys.add('rosidl_runtime_c/u16string_functions.h')
     elif isinstance(type_, NamespacedType):
-        import sys
-        if (
-            type_.name.endswith(SERVICE_REQUEST_MESSAGE_SUFFIX) or
-            type_.name.endswith(SERVICE_RESPONSE_MESSAGE_SUFFIX)
-        ):
-            continue
         if (
             type_.name.endswith(ACTION_GOAL_SUFFIX) or
             type_.name.endswith(ACTION_RESULT_SUFFIX) or
@@ -643,9 +629,6 @@ static rosidl_message_type_support_t _@(message.structure.namespaced_type.name)_
   rosidl_typesupport_fastrtps_c__identifier,
   &__callbacks_@(message.structure.namespaced_type.name),
   get_message_typesupport_handle_function,
-  &@(idl_structure_type_to_c_typename(message.structure.namespaced_type))__@(GET_HASH_FUNC),
-  &@(idl_structure_type_to_c_typename(message.structure.namespaced_type))__@(GET_DESCRIPTION_FUNC),
-  &@(idl_structure_type_to_c_typename(message.structure.namespaced_type))__@(GET_SOURCES_FUNC),
 };
 
 const rosidl_message_type_support_t *
