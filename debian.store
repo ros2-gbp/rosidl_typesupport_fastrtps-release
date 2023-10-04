@@ -1,1 +1,1 @@
-{"base": "d2b0b5e", "parent": "debian/rolling/rosidl_typesupport_fastrtps_cpp", "previous": "5366dca", "trim": "", "trimbase": ""}
+{"base": "5ff5231", "parent": "debian/rolling/rosidl_typesupport_fastrtps_cpp", "previous": "644858d", "trim": "", "trimbase": ""}
