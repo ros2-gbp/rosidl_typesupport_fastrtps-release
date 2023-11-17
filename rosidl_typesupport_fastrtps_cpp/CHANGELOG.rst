@@ -2,15 +2,39 @@
 Changelog for package rosidl_typesupport_fastrtps_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.2.2 (2023-11-13)
+3.0.2 (2023-11-17)
 ------------------
-* Account for alignment on `is_plain` calculations (`#108 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/108>`_) (`#110 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/110>`_)
-* Contributors: mergify[bot]
+* Account for alignment on `is_plain` calculations (`#109 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/109>`_)
+* Contributors: Miguel Company
 
-2.2.1 (2023-07-18)
+3.0.1 (2023-07-14)
 ------------------
-* Avoid redundant declarations in generated code for services and actions (backport `#102 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/102>`_) (`#104 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/104>`_)
-* Contributors: mergify[bot]
+* Avoid redundant declarations in generated code for services and actions (`#103 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/103>`_)
+* Contributors: Emerson Knapp
+
+3.0.0 (2023-04-12)
+------------------
+* Type Description Nested Support (`#101 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/101>`_)
+* Type hashes on typesupport (rep2011) (`#98 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/98>`_)
+* Depend on ament_cmake_ros to default SHARED to ON (`#99 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/99>`_)
+* Expose type hash to typesupport structs (rep2011) (`#95 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/95>`_)
+* Mark benchmark _ as UNUSED. (`#96 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/96>`_)
+* Contributors: Chris Lalancette, Emerson Knapp, Tyler Weaver
+
+2.5.0 (2023-02-13)
+------------------
+* Service introspection (`#92 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/92>`_)
+* Update rosidl_typesupport_fastrtps to C++17. (`#94 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/94>`_)
+* [rolling] Update maintainers - 2022-11-07 (`#93 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/93>`_)
+* Contributors: Audrow Nash, Brian, Chris Lalancette
+
+2.4.0 (2022-09-13)
+------------------
+* Replace rosidl_cmake imports with rosidl_pycommon (`#91 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/91>`_)
+* Contributors: Jacob Perron
+
+2.3.0 (2022-05-04)
+------------------
 
 2.2.0 (2022-03-30)
 ------------------
