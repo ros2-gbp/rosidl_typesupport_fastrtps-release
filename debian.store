@@ -1,1 +1,1 @@
-{"base": "41520f6ec7bf", "parent": "debian/rolling/rosidl_typesupport_fastrtps_c", "previous": "25f8b9412a2b", "trim": "", "trimbase": ""}
+{"base": "c72a392", "parent": "debian/rolling/rosidl_typesupport_fastrtps_c", "previous": "cb80343", "trim": "", "trimbase": ""}
