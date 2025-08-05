@@ -18,7 +18,8 @@ if(NOT TARGET ${rosidl_generate_interfaces_TARGET}__rosidl_generator_cpp)
     "'rosidl_typesupport_fastrtps_cpp' extension.")
 endif()
 
-find_package(ament_cmake_ros_core REQUIRED)
+find_package(ament_cmake_ros REQUIRED)
+find_package(fastrtps_cmake_module QUIET)
 find_package(fastcdr 2 REQUIRED CONFIG)
 find_package(rmw REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
@@ -206,6 +207,7 @@ if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
     RUNTIME DESTINATION bin
   )
 
+  ament_export_dependencies(fastrtps_cmake_module)
   ament_export_dependencies(fastcdr)
   ament_export_dependencies(rmw)
   ament_export_dependencies(rosidl_runtime_c)

@@ -2,29 +2,21 @@
 Changelog for package rosidl_typesupport_fastrtps_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3.9.1 (2025-07-29)
+3.6.2 (2025-08-05)
 ------------------
-* fix cmake deprecation (`#134 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/134>`_)
-* Check remaining size before resizing sequences (`#130 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/130>`_)
-* Contributors: Miguel Company, mosfet80
+* Check remaining size before resizing sequences (`#130 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/130>`_) (`#132 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/132>`_)
+  * Check remaining size before resizing sequences
+  * Avoid linter complaining of too long function.
+  ---------
+  (cherry picked from commit 7283329f7c3cb654e7b843ab127ab2eda680662a)
+  Co-authored-by: Miguel Company <miguelcompany@eprosima.com>
+* Contributors: mergify[bot]
 
-3.9.0 (2025-04-24)
+3.6.1 (2024-12-27)
 ------------------
-
-3.8.0 (2025-03-31)
-------------------
-* Switch to ament_cmake_ros_core package (`#127 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/127>`_)
-* Remove dependency on fastrtps_cmake_module (`#120 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/120>`_)
-* Remove CODEOWNERS and mirror-rolling-to-master workflow (`#124 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/124>`_)
-* Contributors: Chris Lalancette, Miguel Company, Scott K Logan
-
-3.7.1 (2024-11-20)
-------------------
-* Remove deprecated functions benchmark tests (`#122 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/122>`_)
-* Contributors: Miguel Company
-
-3.7.0 (2024-04-26)
-------------------
+* Remove deprecated functions benchmark tests (`#122 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/122>`_) (`#123 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/123>`_)
+  Co-authored-by: Miguel Company <miguelcompany@eprosima.com>
+* Contributors: Cristóbal Arroyo
 
 3.6.0 (2024-04-16)
 ------------------
