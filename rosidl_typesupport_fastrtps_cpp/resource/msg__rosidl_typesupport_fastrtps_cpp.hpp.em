@@ -1,13 +1,12 @@
 @# Included from rosidl_typesupport_fastrtps_cpp/resource/idl__rosidl_typesupport_fastrtps_cpp.hpp.em
 @{
-from rosidl_pycommon import convert_camel_case_to_lower_case_underscore
+from rosidl_cmake import convert_camel_case_to_lower_case_underscore
 
 include_parts = [package_name] + list(interface_path.parents[0].parts) + [
     'detail', convert_camel_case_to_lower_case_underscore(interface_path.stem)]
 include_base = '/'.join(include_parts)
 
 header_files = [
-    'cstddef',
     'rosidl_runtime_c/message_type_support_struct.h',
     'rosidl_typesupport_interface/macros.h',
     package_name + '/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h',
@@ -21,11 +20,7 @@ header_files = [
 @[    else]@
 @{include_directives.add(header_file)}@
 @[    end if]@
-@[    if '/' not in header_file]@
-#include <@(header_file)>
-@[    else]@
 #include "@(header_file)"
-@[    end if]@
 @[end for]@
 
 #ifndef _WIN32
@@ -84,25 +79,6 @@ get_serialized_size(
 size_t
 ROSIDL_TYPESUPPORT_FASTRTPS_CPP_PUBLIC_@(package_name)
 max_serialized_size_@(message.structure.namespaced_type.name)(
-  bool & full_bounded,
-  bool & is_plain,
-  size_t current_alignment);
-
-bool
-ROSIDL_TYPESUPPORT_FASTRTPS_CPP_PUBLIC_@(package_name)
-cdr_serialize_key(
-  const @('::'.join([package_name] + list(interface_path.parents[0].parts) + [message.structure.namespaced_type.name])) & ros_message,
-  eprosima::fastcdr::Cdr &);
-
-size_t
-ROSIDL_TYPESUPPORT_FASTRTPS_CPP_PUBLIC_@(package_name)
-get_serialized_size_key(
-  const @('::'.join([package_name] + list(interface_path.parents[0].parts) + [message.structure.namespaced_type.name])) & ros_message,
-  size_t current_alignment);
-
-size_t
-ROSIDL_TYPESUPPORT_FASTRTPS_CPP_PUBLIC_@(package_name)
-max_serialized_size_key_@(message.structure.namespaced_type.name)(
   bool & full_bounded,
   bool & is_plain,
   size_t current_alignment);

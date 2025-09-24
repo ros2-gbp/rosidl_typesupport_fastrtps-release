@@ -2,10 +2,10 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>rosidl_typesupport_fastrtps_cpp</name>
-  <version>3.6.2</version>
+  <version>2.2.3</version>
   <description>Generate the C++ interfaces for eProsima FastRTPS.</description>
 
-  <maintainer email="sloretz@openrobotics.org">Shane Loretz</maintainer>
+  <maintainer email="shane@openrobotics.org">Shane Loretz</maintainer>
 
   <license>Apache License 2.0</license>
 
@@ -14,7 +14,7 @@
   <author>Ricardo González</author>
 
   <!-- Used in the CMakeLists.txt of this package and only needed by CMake-->
-  <buildtool_depend>ament_cmake_ros</buildtool_depend>
+  <buildtool_depend>ament_cmake</buildtool_depend>
   <buildtool_depend>ament_cmake_python</buildtool_depend>
   <buildtool_depend>fastrtps_cmake_module</buildtool_depend>
 
@@ -24,7 +24,6 @@
   <buildtool_export_depend>python3</buildtool_export_depend>
 
   <!-- Generator depends on output of this other generator -->
-  <buildtool_export_depend>rosidl_generator_c</buildtool_export_depend>
   <buildtool_export_depend>rosidl_generator_cpp</buildtool_export_depend>
 
   <!-- Needed by downstream targets to use this package's headers or the headers it generates, but header only so not needed to link against -->
@@ -39,7 +38,7 @@
   <!-- Needed for the python library it installs, which is also used to generate interfaces -->
   <depend>ament_index_python</depend>
   <depend>rosidl_cli</depend>
-  <exec_depend>rosidl_pycommon</exec_depend>
+  <depend>rosidl_cmake</depend>
 
   <!-- Needed for tests in this package -->
   <test_depend>ament_cmake_gtest</test_depend>
@@ -48,7 +47,6 @@
   <test_depend>ament_lint_common</test_depend>
   <test_depend>osrf_testing_tools_cpp</test_depend>
   <test_depend>performance_test_fixture</test_depend>
-  <test_depend>rcutils</test_depend>
 
   <member_of_group>rosidl_typesupport_cpp_packages</member_of_group>
 

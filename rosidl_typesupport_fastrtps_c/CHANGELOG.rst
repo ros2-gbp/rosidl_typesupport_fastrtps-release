@@ -2,73 +2,17 @@
 Changelog for package rosidl_typesupport_fastrtps_c
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3.6.2 (2025-08-05)
+2.2.3 (2025-09-24)
 ------------------
-* Check remaining size before resizing sequences (`#130 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/130>`_) (`#132 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/132>`_)
-  * Check remaining size before resizing sequences
-  * Avoid linter complaining of too long function.
-  ---------
-  (cherry picked from commit 7283329f7c3cb654e7b843ab127ab2eda680662a)
-  Co-authored-by: Miguel Company <miguelcompany@eprosima.com>
+* Check remaining size before resizing sequences (`#130 <https://github.com/ros2/rosidl_typesupport_fastrtps/pull/130>`_) (`#133 <https://github.com/ros2/rosidl_typesupport_fastrtps/pull/133>`_)
 * Contributors: mergify[bot]
 
-3.6.1 (2024-12-27)
+2.2.2 (2023-11-13)
 ------------------
-* Remove deprecated functions benchmark tests (`#122 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/122>`_) (`#123 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/123>`_)
-  Co-authored-by: Miguel Company <miguelcompany@eprosima.com>
-* Contributors: Cristóbal Arroyo
+* Account for alignment on `is_plain` calculations (`#108 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/108>`_) (`#110 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/110>`_)
+* Contributors: mergify[bot]
 
-3.6.0 (2024-04-16)
-------------------
-* Adding interfaces to support `@key` annotation (`#116 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/116>`_)
-  Co-authored-by: Mario Dominguez <mariodominguez@eprosima.com>
-* Contributors: Miguel Company
-
-3.5.0 (2024-03-27)
-------------------
-* Support Fast CDR v2 (`#114 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/114>`_)
-* Improve wide string (de)serialization (`#113 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/113>`_)
-* Set hints to find the python version we actually want. (`#112 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/112>`_)
-  Co-authored-by: Michael Carroll <michael@openrobotics.org>
-* Contributors: Chris Lalancette, Miguel Company
-
-3.4.0 (2023-12-26)
-------------------
-* Update to C++17 (`#111 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/111>`_)
-* Contributors: Chris Lalancette
-
-3.3.0 (2023-10-04)
-------------------
-* Account for alignment on `is_plain` calculations (`#108 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/108>`_)
-* Contributors: Miguel Company
-
-3.2.0 (2023-06-07)
-------------------
-
-3.1.0 (2023-04-28)
-------------------
-
-3.0.0 (2023-04-12)
-------------------
-* Type Description Nested Support (`#101 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/101>`_)
-* Type hashes on typesupport (rep2011) (`#98 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/98>`_)
-* Expose type hash to typesupport structs (rep2011) (`#95 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/95>`_)
-* Mark benchmark _ as UNUSED. (`#96 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/96>`_)
-* Contributors: Chris Lalancette, Emerson Knapp
-
-2.5.0 (2023-02-13)
-------------------
-* Service introspection (`#92 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/92>`_)
-* Update rosidl_typesupport_fastrtps to C++17. (`#94 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/94>`_)
-* [rolling] Update maintainers - 2022-11-07 (`#93 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/93>`_)
-* Contributors: Audrow Nash, Brian, Chris Lalancette
-
-2.4.0 (2022-09-13)
-------------------
-* Replace rosidl_cmake imports with rosidl_pycommon (`#91 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/91>`_)
-* Contributors: Jacob Perron
-
-2.3.0 (2022-05-04)
+2.2.1 (2023-07-18)
 ------------------
 
 2.2.0 (2022-03-30)

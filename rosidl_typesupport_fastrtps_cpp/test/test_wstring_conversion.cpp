@@ -16,44 +16,43 @@
 
 #include "gtest/gtest.h"
 
-#include "fastcdr/Cdr.h"
 #include "osrf_testing_tools_cpp/scope_exit.hpp"
 
-#include "rosidl_typesupport_fastrtps_cpp/serialization_helpers.hpp"
+#include "rosidl_typesupport_fastrtps_cpp/wstring_conversion.hpp"
 
-using rosidl_typesupport_fastrtps_cpp::cdr_serialize;
-using rosidl_typesupport_fastrtps_cpp::cdr_deserialize;
+using rosidl_typesupport_fastrtps_cpp::u16string_to_wstring;
+using rosidl_typesupport_fastrtps_cpp::wstring_to_u16string;
 
-void test_ser_des(const std::u16string & input)
+TEST(test_wstring_conversion, wstring_to_u16string)
 {
-  namespace fastcdr = eprosima::fastcdr;
-  char raw_buffer[1024];
+  std::u16string actual;
 
-  {
-    fastcdr::FastBuffer buffer(raw_buffer, sizeof(raw_buffer));
-    fastcdr::Cdr serializer(buffer, fastcdr::Cdr::DEFAULT_ENDIAN, fastcdr::CdrVersion::XCDRv1);
-    serializer.set_encoding_flag(fastcdr::EncodingAlgorithmFlag::PLAIN_CDR);
-
-    cdr_serialize(serializer, input);
-  }
-
-  fastcdr::FastBuffer buffer(raw_buffer, sizeof(raw_buffer));
-  fastcdr::Cdr deserializer(buffer, fastcdr::Cdr::DEFAULT_ENDIAN, fastcdr::CdrVersion::XCDRv1);
-  deserializer.set_encoding_flag(fastcdr::EncodingAlgorithmFlag::PLAIN_CDR);
-
-  std::u16string output;
-  ASSERT_TRUE(cdr_deserialize(deserializer, output));
-  EXPECT_EQ(input, output);
-}
-
-TEST(test_wstring_conversion, serialize_deserialize)
-{
   // Default string
-  test_ser_des(std::u16string());
+  EXPECT_TRUE(wstring_to_u16string(std::wstring(), actual));
+  EXPECT_EQ(std::u16string(), actual);
 
   // Empty string
-  test_ser_des(std::u16string(u""));
+  EXPECT_TRUE(wstring_to_u16string(std::wstring(L""), actual));
+  EXPECT_EQ(std::u16string(u""), actual);
 
   // Non-empty string
-  test_ser_des(std::u16string(u"¡Hola, Mundo!"));
+  EXPECT_TRUE(wstring_to_u16string(std::wstring(L"¡Hola, Mundo!"), actual));
+  EXPECT_EQ(std::u16string(u"¡Hola, Mundo!"), actual);
+}
+
+TEST(test_wstring_conversion, u16string_to_wstring)
+{
+  std::wstring actual;
+
+  // Default string
+  u16string_to_wstring(std::u16string(), actual);
+  EXPECT_EQ(std::wstring(), actual);
+
+  // Empty string
+  u16string_to_wstring(std::u16string(u""), actual);
+  EXPECT_EQ(std::wstring(L""), actual);
+
+  // Non-empty string
+  u16string_to_wstring(std::u16string(u"¡Hola, Mundo!"), actual);
+  EXPECT_EQ(std::wstring(L"¡Hola, Mundo!"), actual);
 }
