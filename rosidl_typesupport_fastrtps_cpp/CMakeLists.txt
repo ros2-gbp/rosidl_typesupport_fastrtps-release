@@ -10,9 +10,10 @@ else()
     CACHE BOOL "If Connext Static should be disabled.")
 endif()
 
-# Default to C++14
+# Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -20,14 +21,9 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_ros_core REQUIRED)
 
-find_package(fastrtps_cmake_module QUIET)
-find_package(fastcdr REQUIRED CONFIG)
-if(FASTRTPS_STATIC_DISABLE)
-  ament_package()
-  message(STATUS "fastrtps static rmw implementation explicitly disabled - skipping '${PROJECT_NAME}'")
-  return()
-endif()
+find_package(fastcdr 2 REQUIRED CONFIG)
 
 find_package(ament_cmake_python REQUIRED)
 
@@ -35,14 +31,12 @@ find_package(rmw REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
 
 ament_export_dependencies(rmw)
-ament_export_dependencies(rosidl_cmake)
 ament_export_dependencies(rosidl_runtime_c)
-ament_export_dependencies(fastrtps_cmake_module)
 ament_export_dependencies(fastcdr)
 
 ament_python_install_package(${PROJECT_NAME})
 
-add_library(${PROJECT_NAME} SHARED
+add_library(${PROJECT_NAME}
   src/identifier.cpp
   src/wstring_conversion.cpp)
 set_property(TARGET ${PROJECT_NAME}
@@ -102,11 +96,6 @@ if(BUILD_TESTING)
   if(TARGET test_wstring_conversion_mem)
     target_link_libraries(test_wstring_conversion_mem
       ${PROJECT_NAME} osrf_testing_tools_cpp::memory_tools)
-  endif()
-
-  add_performance_test(benchmark_string_conversions test/benchmark/benchmark_string_conversions.cpp)
-  if(TARGET benchmark_string_conversions)
-    target_link_libraries(benchmark_string_conversions ${PROJECT_NAME})
   endif()
 
   find_package(ament_cmake_pytest REQUIRED)

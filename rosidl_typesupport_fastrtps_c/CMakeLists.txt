@@ -15,16 +15,18 @@ if(NOT CMAKE_C_STANDARD)
   set(CMAKE_C_STANDARD 99)
 endif()
 
-# Default to C++14
+# Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-find_package(ament_cmake_ros REQUIRED)
+find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_ros_core REQUIRED)
 
 if(FASTRTPS_STATIC_DISABLE)
   ament_package()
@@ -34,9 +36,10 @@ endif()
 
 find_package(ament_cmake_python REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
+find_package(fastcdr REQUIRED CONFIG)
 
-ament_export_dependencies(rosidl_cmake)
 ament_export_dependencies(rosidl_runtime_c)
+ament_export_dependencies(fastcdr)
 
 ament_python_install_package(${PROJECT_NAME})
 
@@ -49,6 +52,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
 target_link_libraries(${PROJECT_NAME} PUBLIC
+  fastcdr
   rosidl_runtime_c::rosidl_runtime_c)
 
 # Export old-style CMake variables
@@ -96,11 +100,6 @@ if(BUILD_TESTING)
   if(TARGET test_wstring_conversion_mem)
     target_link_libraries(test_wstring_conversion_mem
       ${PROJECT_NAME} osrf_testing_tools_cpp::memory_tools)
-  endif()
-
-  add_performance_test(benchmark_string_conversions test/benchmark/benchmark_string_conversions.cpp)
-  if(TARGET benchmark_string_conversions)
-    target_link_libraries(benchmark_string_conversions ${PROJECT_NAME})
   endif()
 
   find_package(ament_cmake_pytest REQUIRED)
