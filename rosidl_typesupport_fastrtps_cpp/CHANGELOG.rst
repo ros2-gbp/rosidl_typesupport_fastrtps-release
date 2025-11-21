@@ -2,24 +2,19 @@
 Changelog for package rosidl_typesupport_fastrtps_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3.9.3 (2025-11-21)
+3.8.2 (2025-11-21)
 ------------------
-* Switch ament_index_python and rosidl_cli to exec_depend. (`#137 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/137>`_)
-* Contributors: Chris Lalancette
+* Switch ament_index_python and rosidl_cli to exec_depend. (`#137 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/137>`_) (`#139 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/139>`_)
+  They are both Python libraries, so they are really only
+  needed at exec time.
+  (cherry picked from commit db528f13225c23f3f04a97500279f9171611da22)
+  Co-authored-by: Chris Lalancette <clalancette@gmail.com>
+* Contributors: mergify[bot]
 
-3.9.2 (2025-10-01)
+3.8.1 (2025-09-24)
 ------------------
-* Removed deprecated code (`#135 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/135>`_)
-* Contributors: Alejandro Hernández Cordero
-
-3.9.1 (2025-07-29)
-------------------
-* fix cmake deprecation (`#134 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/134>`_)
-* Check remaining size before resizing sequences (`#130 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/130>`_)
-* Contributors: Miguel Company, mosfet80
-
-3.9.0 (2025-04-24)
-------------------
+* Check remaining size before resizing sequences (`#130 <https://github.com/ros2/rosidl_typesupport_fastrtps/pull/130>`_) (`#131 <https://github.com/ros2/rosidl_typesupport_fastrtps/pull/131>`_)
+* Contributors: mergify[bot]
 
 3.8.0 (2025-03-31)
 ------------------
