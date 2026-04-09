@@ -18,9 +18,8 @@ if(NOT TARGET ${rosidl_generate_interfaces_TARGET}__rosidl_generator_cpp)
     "'rosidl_typesupport_fastrtps_cpp' extension.")
 endif()
 
-find_package(ament_cmake_ros REQUIRED)
-find_package(fastrtps_cmake_module QUIET)
-find_package(fastcdr REQUIRED CONFIG)
+find_package(ament_cmake_ros_core REQUIRED)
+find_package(fastcdr 2 REQUIRED CONFIG)
 find_package(rmw REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
 find_package(rosidl_runtime_cpp REQUIRED)
@@ -87,7 +86,29 @@ rosidl_write_generator_arguments(
   TARGET_DEPENDENCIES ${target_dependencies}
 )
 
+# By default, without the settings below, find_package(Python3) will attempt
+# to find the newest python version it can, and additionally will find the
+# most specific version.  For instance, on a system that has
+# /usr/bin/python3.10, /usr/bin/python3.11, and /usr/bin/python3, it will find
+# /usr/bin/python3.11, even if /usr/bin/python3 points to /usr/bin/python3.10.
+# The behavior we want is to prefer the "system" installed version unless the
+# user specifically tells us otherwise through the Python3_EXECUTABLE hint.
+# Setting CMP0094 to NEW means that the search will stop after the first
+# python version is found.  Setting Python3_FIND_UNVERSIONED_NAMES means that
+# the search will prefer /usr/bin/python3 over /usr/bin/python3.11.  And that
+# latter functionality is only available in CMake 3.20 or later, so we need
+# at least that version.
+cmake_minimum_required(VERSION 3.20)
+cmake_policy(SET CMP0094 NEW)
+set(Python3_FIND_UNVERSIONED_NAMES FIRST)
+
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
+
+if(${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.27)
+  set(_dep_explicit_only DEPENDS_EXPLICIT_ONLY)
+else()
+  set(_dep_explicit_only "")
+endif()
 
 # Add a command that invokes generator at build time
 add_custom_command(
@@ -98,11 +119,12 @@ add_custom_command(
   DEPENDS ${target_dependencies}
   COMMENT "Generating C++ type support for eProsima Fast-RTPS"
   VERBATIM
+  ${_dep_explicit_only}
 )
 
 # generate header to switch between export and import for a specific package
 set(_visibility_control_file
-"${_output_path}/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h")
+  "${_output_path}/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h")
 string(TOUPPER "${PROJECT_NAME}" PROJECT_NAME_UPPER)
 configure_file(
   "${rosidl_typesupport_fastrtps_cpp_TEMPLATE_DIR}/rosidl_typesupport_fastrtps_cpp__visibility_control.h.in"
@@ -113,7 +135,7 @@ configure_file(
 set(_target_suffix "__rosidl_typesupport_fastrtps_cpp")
 
 # Create a library that builds the generated files
-add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} ${rosidl_typesupport_fastrtps_cpp_LIBRARY_TYPE}
   ${_generated_files})
 
 # Change output library name if asked to
@@ -125,7 +147,7 @@ endif()
 set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
   PROPERTIES
     DEFINE_SYMBOL "ROSIDL_TYPESUPPORT_FASTRTPS_CPP_BUILDING_DLL_${PROJECT_NAME}"
-    CXX_STANDARD 14)
+    CXX_STANDARD 17)
 
 # Set compiler flags
 if(NOT WIN32)
@@ -157,6 +179,7 @@ endforeach()
 
 # Depend on the target created by rosidl_generator_cpp
 target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix} PUBLIC
+  ${rosidl_generate_interfaces_TARGET}__rosidl_generator_c
   ${rosidl_generate_interfaces_TARGET}__rosidl_generator_cpp)
 
 # Make top level generation target depend on this library
@@ -190,7 +213,6 @@ if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
     RUNTIME DESTINATION bin
   )
 
-  ament_export_dependencies(fastrtps_cmake_module)
   ament_export_dependencies(fastcdr)
   ament_export_dependencies(rmw)
   ament_export_dependencies(rosidl_runtime_c)

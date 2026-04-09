@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.20)
 
 project(rosidl_typesupport_fastrtps_cpp)
 
@@ -10,9 +10,10 @@ else()
     CACHE BOOL "If Connext Static should be disabled.")
 endif()
 
-# Default to C++14
+# Default to C++17
 if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 14)
+  set(CMAKE_CXX_STANDARD 17)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
@@ -20,31 +21,27 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 endif()
 
 find_package(ament_cmake REQUIRED)
+find_package(ament_cmake_ros_core REQUIRED)
 
-find_package(fastrtps_cmake_module QUIET)
-find_package(fastcdr REQUIRED CONFIG)
-if(FASTRTPS_STATIC_DISABLE)
-  ament_package()
-  message(STATUS "fastrtps static rmw implementation explicitly disabled - skipping '${PROJECT_NAME}'")
-  return()
-endif()
+find_package(fastcdr 2 REQUIRED CONFIG)
 
 find_package(ament_cmake_python REQUIRED)
 
 find_package(rmw REQUIRED)
+find_package(rosidl_buffer_backend REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
+find_package(rosidl_runtime_cpp REQUIRED)
 
 ament_export_dependencies(rmw)
-ament_export_dependencies(rosidl_cmake)
+ament_export_dependencies(rosidl_buffer_backend)
 ament_export_dependencies(rosidl_runtime_c)
-ament_export_dependencies(fastrtps_cmake_module)
+ament_export_dependencies(rosidl_runtime_cpp)
 ament_export_dependencies(fastcdr)
 
 ament_python_install_package(${PROJECT_NAME})
 
-add_library(${PROJECT_NAME} SHARED
-  src/identifier.cpp
-  src/wstring_conversion.cpp)
+add_library(${PROJECT_NAME}
+  src/identifier.cpp)
 set_property(TARGET ${PROJECT_NAME}
   PROPERTY DEFINE_SYMBOL "ROSIDL_TYPESUPPORT_FASTRTPS_CPP_BUILDING_DLL")
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -52,7 +49,9 @@ target_include_directories(${PROJECT_NAME} PUBLIC
   "$<INSTALL_INTERFACE:include/${PROJECT_NAME}>")
 target_link_libraries(${PROJECT_NAME} PUBLIC
   fastcdr
+  rosidl_buffer_backend::rosidl_buffer_backend
   rosidl_runtime_c::rosidl_runtime_c
+  rosidl_runtime_cpp::rosidl_runtime_cpp
   rmw::rmw)
 
 # Export old-style CMake variables
@@ -88,29 +87,22 @@ if(BUILD_TESTING)
     set(SKIP_MEMORY_TOOLS_TEST "SKIP_TEST")
   endif()
 
-  ament_add_gtest(test_wstring_conversion test/test_wstring_conversion.cpp)
-  if(TARGET test_wstring_conversion)
-    target_include_directories(test_wstring_conversion PRIVATE
-      ${osrf_testing_tools_cpp_INCLUDE_DIRS})
-    target_link_libraries(test_wstring_conversion
-      ${PROJECT_NAME})
-  endif()
-
-  ament_add_gtest(test_wstring_conversion_mem test/test_wstring_conversion_mem.cpp
-    ENV ${memory_tools_ld_preload_env_var}
-    ${SKIP_MEMORY_TOOLS_TEST})
-  if(TARGET test_wstring_conversion_mem)
-    target_link_libraries(test_wstring_conversion_mem
-      ${PROJECT_NAME} osrf_testing_tools_cpp::memory_tools)
-  endif()
-
-  add_performance_test(benchmark_string_conversions test/benchmark/benchmark_string_conversions.cpp)
-  if(TARGET benchmark_string_conversions)
-    target_link_libraries(benchmark_string_conversions ${PROJECT_NAME})
-  endif()
-
   find_package(ament_cmake_pytest REQUIRED)
   ament_add_pytest_test(test_cli_extension test/test_cli_extension.py)
+
+  ament_add_gtest(test_buffer_wire_compat
+    test/test_buffer_wire_compat.cpp)
+  if(TARGET test_buffer_wire_compat)
+    target_link_libraries(test_buffer_wire_compat
+      ${PROJECT_NAME}
+      fastcdr)
+  endif()
+endif()
+
+if(BUILD_SHARED_LIBS)
+  set(${PROJECT_NAME}_LIBRARY_TYPE "SHARED")
+else()
+  set(${PROJECT_NAME}_LIBRARY_TYPE "STATIC")
 endif()
 
 ament_package(
