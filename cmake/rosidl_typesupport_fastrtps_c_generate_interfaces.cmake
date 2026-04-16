@@ -94,6 +94,12 @@ set(Python3_FIND_UNVERSIONED_NAMES FIRST)
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
+if(${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.27)
+  set(_dep_explicit_only DEPENDS_EXPLICIT_ONLY)
+else()
+  set(_dep_explicit_only "")
+endif()
+
 add_custom_command(
   OUTPUT ${_generated_files}
   COMMAND Python3::Interpreter
@@ -102,6 +108,7 @@ add_custom_command(
   DEPENDS ${target_dependencies}
   COMMENT "Generating C type support for eProsima Fast-RTPS"
   VERBATIM
+  ${_dep_explicit_only}
 )
 
 # generate header to switch between export and import for a specific package
@@ -116,7 +123,7 @@ configure_file(
 
 set(_target_suffix "__rosidl_typesupport_fastrtps_c")
 
-add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix}
+add_library(${rosidl_generate_interfaces_TARGET}${_target_suffix} ${rosidl_typesupport_fastrtps_c_LIBRARY_TYPE}
   ${_generated_files})
 if(rosidl_generate_interfaces_LIBRARY_NAME)
   set_target_properties(${rosidl_generate_interfaces_TARGET}${_target_suffix}
