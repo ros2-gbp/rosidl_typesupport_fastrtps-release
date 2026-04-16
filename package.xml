@@ -2,7 +2,7 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>rosidl_typesupport_fastrtps_cpp</name>
-  <version>3.9.3</version>
+  <version>3.9.5</version>
   <description>Generate the C++ interfaces for eProsima FastRTPS.</description>
 
   <maintainer email="sloretz@openrobotics.org">Shane Loretz</maintainer>
@@ -26,6 +26,9 @@
   <buildtool_export_depend>rosidl_generator_c</buildtool_export_depend>
   <buildtool_export_depend>rosidl_generator_cpp</buildtool_export_depend>
 
+  <!-- Needed by this package to export the dependency for downstream targets -->
+  <build_depend>rosidl_runtime_cpp</build_depend>
+
   <!-- Needed by downstream targets to use this package's headers or the headers it generates, but header only so not needed to link against -->
   <build_export_depend>rosidl_runtime_cpp</build_export_depend>
   <build_export_depend>rosidl_typesupport_interface</build_export_depend>
@@ -33,6 +36,7 @@
   <!-- Needed for headers in this package, or the headers it generates, and also needs to be linked in downstream packages -->
   <depend>fastcdr</depend>
   <depend>rmw</depend>
+  <depend>rosidl_buffer_backend</depend>
   <depend>rosidl_runtime_c</depend>
 
   <!-- Needed for the python library it installs, which is also used to generate interfaces -->
