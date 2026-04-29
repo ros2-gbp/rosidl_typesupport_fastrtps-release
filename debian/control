@@ -1,0 +1,12 @@
+Source: ros-lyrical-rosidl-typesupport-fastrtps-c
+Section: misc
+Priority: optional
+Maintainer: Shane Loretz <sloretz@openrobotics.org>
+Build-Depends: debhelper (>= 9.0.0), ros-lyrical-ament-cmake, ros-lyrical-ament-cmake-gtest <!nocheck>, ros-lyrical-ament-cmake-pytest <!nocheck>, ros-lyrical-ament-cmake-python, ros-lyrical-ament-cmake-ros-core, ros-lyrical-ament-lint-auto <!nocheck>, ros-lyrical-ament-lint-common <!nocheck>, ros-lyrical-fastcdr, ros-lyrical-osrf-testing-tools-cpp <!nocheck>, ros-lyrical-performance-test-fixture <!nocheck>, ros-lyrical-rcutils <!nocheck>, ros-lyrical-rmw, ros-lyrical-rosidl-runtime-c, ros-lyrical-rosidl-typesupport-fastrtps-cpp, ros-lyrical-ros-workspace
+Homepage: https://index.ros.org/p/rosidl_typesupport_fastrtps_c/#lyrical
+Standards-Version: 3.9.2
+
+Package: ros-lyrical-rosidl-typesupport-fastrtps-c
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3-dev, ros-lyrical-ament-cmake-ros-core, ros-lyrical-ament-index-python, ros-lyrical-fastcdr, ros-lyrical-rmw, ros-lyrical-rosidl-cli, ros-lyrical-rosidl-generator-c, ros-lyrical-rosidl-pycommon, ros-lyrical-rosidl-runtime-c, ros-lyrical-rosidl-runtime-cpp, ros-lyrical-rosidl-typesupport-fastrtps-cpp, ros-lyrical-rosidl-typesupport-interface, ros-lyrical-ros-workspace
+Description: Generate the C interfaces for eProsima FastRTPS.
