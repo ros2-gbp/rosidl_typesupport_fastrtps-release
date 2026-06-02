@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.5)
 
 project(rosidl_typesupport_fastrtps_c)
 
@@ -25,8 +25,7 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-find_package(ament_cmake REQUIRED)
-find_package(ament_cmake_ros_core REQUIRED)
+find_package(ament_cmake_ros REQUIRED)
 
 if(FASTRTPS_STATIC_DISABLE)
   ament_package()
@@ -44,7 +43,8 @@ ament_export_dependencies(fastcdr)
 ament_python_install_package(${PROJECT_NAME})
 
 add_library(${PROJECT_NAME}
-  src/identifier.cpp)
+  src/identifier.cpp
+  src/wstring_conversion.cpp)
 set_property(TARGET ${PROJECT_NAME}
   PROPERTY DEFINE_SYMBOL "ROSIDL_TYPESUPPORT_FASTRTPS_C_BUILDING_DLL")
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -83,6 +83,22 @@ if(BUILD_TESTING)
   set(SKIP_MEMORY_TOOLS_TEST "")
   if(NOT memory_tools_is_available)
     set(SKIP_MEMORY_TOOLS_TEST "SKIP_TEST")
+  endif()
+
+  ament_add_gtest(test_wstring_conversion test/test_wstring_conversion.cpp)
+  if(TARGET test_wstring_conversion)
+    target_include_directories(test_wstring_conversion PRIVATE
+      ${osrf_testing_tools_cpp_INCLUDE_DIRS})
+    target_link_libraries(test_wstring_conversion
+      ${PROJECT_NAME})
+  endif()
+
+  ament_add_gtest(test_wstring_conversion_mem test/test_wstring_conversion_mem.cpp
+    ENV ${memory_tools_ld_preload_env_var}
+    ${SKIP_MEMORY_TOOLS_TEST})
+  if(TARGET test_wstring_conversion_mem)
+    target_link_libraries(test_wstring_conversion_mem
+      ${PROJECT_NAME} osrf_testing_tools_cpp::memory_tools)
   endif()
 
   find_package(ament_cmake_pytest REQUIRED)

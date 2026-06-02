@@ -2,60 +2,34 @@
 Changelog for package rosidl_typesupport_fastrtps_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-3.10.1 (2026-05-13)
--------------------
-* Clean up logs in buffer serialization functions (`#153 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/153>`_)
-* Update rosidl typesupport to support rosidl::Buffer in nested uint8[] (`#151 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/151>`_)
-* Contributors: CY Chen
-
-3.10.0 (2026-05-05)
--------------------
-
-3.9.5 (2026-04-16)
+3.6.4 (2026-06-02)
 ------------------
-* Add missing build dependencies for exported dependencies (`#149 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/149>`_)
-* Contributors: Scott K Logan
+* use variable to control shared/static build type (`#138 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/138>`_) (`#147 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/147>`_)
+  (cherry picked from commit 82f41be79fd5017f64c54be9cf0ef30fcb76d753)
+  Co-authored-by: Jay Sridharan <jayasurs@usc.edu>
+  Co-authored-by: Jay Sridharan <jsridharan@relativityspace.com>
+* Contributors: mergify[bot]
 
-3.9.4 (2026-04-09)
+3.6.3 (2025-11-21)
 ------------------
-* Add support for rosidl::Buffer type serialization (`#144 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/144>`_)
-* use variable to control shared/static build type (`#138 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/138>`_)
-* Add DEPENDS_EXPLICIT_ONLY to remove implicit dependencies (`#136 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/136>`_)
-* Contributors: Anthony Welte, CY Chen, Jay Sridharan
+* Switch ament_index_python and rosidl_cli to exec_depend. (`#137 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/137>`_) (`#140 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/140>`_)
+* Contributors: mergify[bot]
 
-3.9.3 (2025-11-21)
+3.6.2 (2025-08-05)
 ------------------
-* Switch ament_index_python and rosidl_cli to exec_depend. (`#137 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/137>`_)
-* Contributors: Chris Lalancette
+* Check remaining size before resizing sequences (`#130 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/130>`_) (`#132 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/132>`_)
+  * Check remaining size before resizing sequences
+  * Avoid linter complaining of too long function.
+  ---------
+  (cherry picked from commit 7283329f7c3cb654e7b843ab127ab2eda680662a)
+  Co-authored-by: Miguel Company <miguelcompany@eprosima.com>
+* Contributors: mergify[bot]
 
-3.9.2 (2025-10-01)
+3.6.1 (2024-12-27)
 ------------------
-* Removed deprecated code (`#135 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/135>`_)
-* Contributors: Alejandro Hernández Cordero
-
-3.9.1 (2025-07-29)
-------------------
-* fix cmake deprecation (`#134 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/134>`_)
-* Check remaining size before resizing sequences (`#130 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/130>`_)
-* Contributors: Miguel Company, mosfet80
-
-3.9.0 (2025-04-24)
-------------------
-
-3.8.0 (2025-03-31)
-------------------
-* Switch to ament_cmake_ros_core package (`#127 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/127>`_)
-* Remove dependency on fastrtps_cmake_module (`#120 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/120>`_)
-* Remove CODEOWNERS and mirror-rolling-to-master workflow (`#124 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/124>`_)
-* Contributors: Chris Lalancette, Miguel Company, Scott K Logan
-
-3.7.1 (2024-11-20)
-------------------
-* Remove deprecated functions benchmark tests (`#122 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/122>`_)
-* Contributors: Miguel Company
-
-3.7.0 (2024-04-26)
-------------------
+* Remove deprecated functions benchmark tests (`#122 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/122>`_) (`#123 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/123>`_)
+  Co-authored-by: Miguel Company <miguelcompany@eprosima.com>
+* Contributors: Cristóbal Arroyo
 
 3.6.0 (2024-04-16)
 ------------------

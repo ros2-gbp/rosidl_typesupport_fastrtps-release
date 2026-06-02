@@ -18,7 +18,8 @@ if(NOT TARGET ${rosidl_generate_interfaces_TARGET}__rosidl_generator_c)
     "'rosidl_typesupport_fastrtps_c' extension.")
 endif()
 
-find_package(ament_cmake_ros_core REQUIRED)
+find_package(ament_cmake_ros REQUIRED)
+find_package(fastrtps_cmake_module QUIET)
 find_package(fastcdr 2 REQUIRED CONFIG)
 find_package(rosidl_typesupport_interface REQUIRED)
 find_package(rosidl_typesupport_fastrtps_cpp REQUIRED)
@@ -94,12 +95,6 @@ set(Python3_FIND_UNVERSIONED_NAMES FIRST)
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
-if(${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.27)
-  set(_dep_explicit_only DEPENDS_EXPLICIT_ONLY)
-else()
-  set(_dep_explicit_only "")
-endif()
-
 add_custom_command(
   OUTPUT ${_generated_files}
   COMMAND Python3::Interpreter
@@ -108,7 +103,6 @@ add_custom_command(
   DEPENDS ${target_dependencies}
   COMMENT "Generating C type support for eProsima Fast-RTPS"
   VERBATIM
-  ${_dep_explicit_only}
 )
 
 # generate header to switch between export and import for a specific package
@@ -194,6 +188,7 @@ if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
     RUNTIME DESTINATION bin
   )
 
+  ament_export_dependencies(fastrtps_cmake_module)
   ament_export_dependencies(fastcdr)
   ament_export_dependencies(rosidl_runtime_c)
   ament_export_dependencies(rosidl_runtime_cpp)

@@ -18,7 +18,8 @@ if(NOT TARGET ${rosidl_generate_interfaces_TARGET}__rosidl_generator_cpp)
     "'rosidl_typesupport_fastrtps_cpp' extension.")
 endif()
 
-find_package(ament_cmake_ros_core REQUIRED)
+find_package(ament_cmake_ros REQUIRED)
+find_package(fastrtps_cmake_module QUIET)
 find_package(fastcdr 2 REQUIRED CONFIG)
 find_package(rmw REQUIRED)
 find_package(rosidl_runtime_c REQUIRED)
@@ -104,12 +105,6 @@ set(Python3_FIND_UNVERSIONED_NAMES FIRST)
 
 find_package(Python3 REQUIRED COMPONENTS Interpreter)
 
-if(${CMAKE_VERSION} VERSION_GREATER_EQUAL 3.27)
-  set(_dep_explicit_only DEPENDS_EXPLICIT_ONLY)
-else()
-  set(_dep_explicit_only "")
-endif()
-
 # Add a command that invokes generator at build time
 add_custom_command(
   OUTPUT ${_generated_files}
@@ -119,7 +114,6 @@ add_custom_command(
   DEPENDS ${target_dependencies}
   COMMENT "Generating C++ type support for eProsima Fast-RTPS"
   VERBATIM
-  ${_dep_explicit_only}
 )
 
 # generate header to switch between export and import for a specific package
@@ -182,10 +176,6 @@ target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix} PUBL
   ${rosidl_generate_interfaces_TARGET}__rosidl_generator_c
   ${rosidl_generate_interfaces_TARGET}__rosidl_generator_cpp)
 
-# Generated C++ typesupport delegates transitive Buffer-field detection to the generated C helper
-target_link_libraries(${rosidl_generate_interfaces_TARGET}${_target_suffix} PRIVATE
-  ${rosidl_generate_interfaces_TARGET}__rosidl_typesupport_fastrtps_c)
-
 # Make top level generation target depend on this library
 add_dependencies(
   ${rosidl_generate_interfaces_TARGET}
@@ -217,6 +207,7 @@ if(NOT rosidl_generate_interfaces_SKIP_INSTALL)
     RUNTIME DESTINATION bin
   )
 
+  ament_export_dependencies(fastrtps_cmake_module)
   ament_export_dependencies(fastcdr)
   ament_export_dependencies(rmw)
   ament_export_dependencies(rosidl_runtime_c)
