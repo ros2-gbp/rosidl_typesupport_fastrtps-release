@@ -2,6 +2,17 @@
 Changelog for package rosidl_typesupport_fastrtps_cpp
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+3.9.7 (2026-09-15)
+------------------
+* print rcl::buffer debug message only once cz it is a hot path. (`#164 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/164>`_) (`#165 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/165>`_)
+* Contributors: mergify[bot]
+
+3.9.6 (2026-05-13)
+------------------
+* Clean up logs in buffer serialization functions (`#153 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/153>`_) (`#154 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/154>`_)
+* Update rosidl typesupport to support rosidl::Buffer in nested uint8[] (`#151 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/151>`_) (`#152 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/152>`_)
+* Contributors: mergify[bot]
+
 3.9.5 (2026-04-16)
 ------------------
 * Add missing build dependencies for exported dependencies (`#149 <https://github.com/ros2/rosidl_typesupport_fastrtps/issues/149>`_)
